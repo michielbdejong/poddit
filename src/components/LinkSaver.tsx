@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Value, useWebId, useLDflexValue, List, Like, useLDflexList } from '@solid/react';
+import { useWebId, useLDflexValue, useLDflexList } from '@solid/react';
 import data from '@solid/query-ldflex';
 import { LinkList } from './LinkList';
 
@@ -8,6 +8,7 @@ export const LinkSaver: React.FC = () => {
   const name = useLDflexValue(`[${webId}].name`);
   const interests = useLDflexList(`[${webId}].interest`).map(interest => interest.toString());
   const [link, setLink] = React.useState<string>();
+  const [addedLocalLinks, addLocalLink] = React.useReducer((oldLinks, link) => oldLinks.concat(link), []);
 
   async function saveLink(event: React.FormEvent) {
     event.preventDefault();
@@ -15,6 +16,8 @@ export const LinkSaver: React.FC = () => {
     if (!webId) {
       return;
     }
+    // Eagerly add the link to the local list so it already shows up in the UI:
+    addLocalLink(link);
     await data.user.interest.add(link);
   }
 
@@ -50,7 +53,7 @@ export const LinkSaver: React.FC = () => {
               </div>
             </div>
           </form>
-          <LinkList links={interests}/>
+          <LinkList links={addedLocalLinks.concat(interests)}/>
         </div>
       </section>
     </>
