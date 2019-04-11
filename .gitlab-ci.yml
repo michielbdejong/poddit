@@ -1,0 +1,43 @@
+image: node:10
+
+stages:
+  - build
+  - test
+  - deploy
+
+cache:
+  paths: 
+    - node_modules/
+
+before_script:
+  - yarn install --frozen-lockfile
+
+build:
+  stage: build
+  script:
+    - yarn run build
+  artifacts:
+    expire_in: 1 month
+    untracked: true
+
+test:
+  stage: test
+  script:
+    - yarn test --ci
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - coverage
+
+pages:
+  stage: deploy
+  script:
+    # The `public` folder contains public assets for CRA,
+    # but GitLab Pages wants it to contain the built app
+    - rm -r public
+    - mv build public
+  artifacts:
+    paths:
+      - public 
+  only:
+    - master # this job will affect only the 'master' branch
