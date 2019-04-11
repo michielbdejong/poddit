@@ -10,8 +10,8 @@ declare module "@solid/react" {
   export interface LoginButtonProps {
       popup: string;
   }
-  export class LoginButton extends React.Component<LoginButtonProps> {}
-  export class LogoutButton extends React.Component {}
+  export class LoginButton extends React.Component<LoginButtonProps & React.HTMLAttributes> {}
+  export class LogoutButton extends React.Component<React.HTMLAttributes> {}
   export interface AuthButtonProps extends LoginButtonProps {
       login: string;
       logout: string;

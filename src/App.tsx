@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
-import './App.css';
 import { LoggedIn, LogoutButton, LoggedOut, LoginButton } from '@solid/react';
 import { LinkSaver } from './components/LinkSaver';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div>
+        
         <LoggedIn>
           <LinkSaver/>
-          <LogoutButton/>
+          <footer className="footer">
+            <div className="container">
+              <LogoutButton className="button is-pulled-right"/>
+            </div>
+          </footer>
         </LoggedIn>
         <LoggedOut>
-          <LoginButton popup="popup.html"/>
+          <section className="section">
+            <div className="container">
+              <LoginButton popup="popup.html" className="button is-large is-primary">
+                Log in to start bookmarking
+              </LoginButton>
+            </div>
+          </section>
         </LoggedOut>
       </div>
     );
