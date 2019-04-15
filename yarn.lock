@@ -1949,6 +1949,13 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
+"@types/solid__react@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@types/solid__react/-/solid__react-1.6.1.tgz#adf2b180bfaadb6039d18d42d10c2ebcee32dd8f"
+  integrity sha512-GCQtVDst42jkKD3GYnkVLPBN55RMl4HjC9lN4AQJuc1ONK+udVhz4/BQxMQAu7f2ujkNx1Hs39m2TVFet/QG/Q==
+  dependencies:
+    "@types/react" "*"
+
 "@types/tapable@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.2.tgz#e13182e1b69871a422d7863e11a4a6f5b814a4bd"
