@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Page } from "../interfaces";
+import { Bookmark } from "../interfaces";
 
 export interface Props {
-  links: Page[];
+  links: Bookmark[];
 };
 
 export const LinkList: React.FC<Props> = ({ links }) => {
@@ -13,11 +13,11 @@ export const LinkList: React.FC<Props> = ({ links }) => {
   );
 };
 
-function byNewer(pageA: Page, pageB: Page): number {
-  return pageB.created.getTime() - pageA.created.getTime();
+function byNewer(bookmarkA: Bookmark, bookmarkB: Bookmark): number {
+  return bookmarkB.created.getTime() - bookmarkA.created.getTime();
 }
 
-function linkToCard(link: Page, index: number): JSX.Element {
+function linkToCard(link: Bookmark, index: number): JSX.Element {
   return (
     <li key={index} className="card section">
       <p className="content is-large">

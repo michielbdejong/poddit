@@ -1,44 +1,44 @@
 import * as $rdf from 'rdflib';
-import { SOLID, AS, PIM, DC } from '../namespaces';
+import { SOLID, PIM, DC, BOOKMARK, RDF } from '../namespaces';
 
 export async function initialise(store: $rdf.IndexedFormula, webId: string): Promise<$rdf.Node> {
-  const registry = await registerPageIndex(store, webId);
-  const index = await initialisePageIndex(store, registry);
+  const registry = await registerBookmarkIndex(store, webId);
+  const index = await initialiseBookmarkIndex(store, registry);
   return index;
 }
 
-async function registerPageIndex(store: $rdf.IndexedFormula, webId: string): Promise<$rdf.Node> {
+async function registerBookmarkIndex(store: $rdf.IndexedFormula, webId: string): Promise<$rdf.Node> {
   const profile = store.sym(webId);
   const fetcher = new $rdf.Fetcher(store, {});
   const typeIndex = store.any(profile, SOLID('publicTypeIndex'), undefined, undefined);
   await (fetcher as any).load(typeIndex);
-  let pageRegistry = store.any(undefined, SOLID('forClass'), AS('Page'), undefined);
-  if (typeof pageRegistry === 'undefined') {
+  let bookmarkRegistry = store.any(undefined, SOLID('forClass'), BOOKMARK('Bookmark'), undefined);
+  if (typeof bookmarkRegistry === 'undefined') {
     const storage = store.any(profile, PIM('storage'), undefined, undefined);
     const registryFilename = `${storage.value}public/poddit.ttl`;
-    const pageIndex = $rdf.sym(`${typeIndex.value}#poddit`);
+    const bookmarkIndex = $rdf.sym(`${typeIndex.value}#poddit`);
     const insertions = [
-      $rdf.st(typeIndex, DC('references'), pageIndex, typeIndex),
-      $rdf.st(pageIndex, AS('type'), SOLID('TypeRegistration'), pageIndex.doc()),
-      $rdf.st(pageIndex, SOLID('forClass'), AS('Page'), pageIndex.doc()),
-      $rdf.st(pageIndex, SOLID('instance'), $rdf.sym(registryFilename), pageIndex.doc()),
+      $rdf.st(typeIndex, DC('references'), bookmarkIndex, typeIndex),
+      $rdf.st(bookmarkIndex, RDF('type'), SOLID('TypeRegistration'), bookmarkIndex.doc()),
+      $rdf.st(bookmarkIndex, SOLID('forClass'), BOOKMARK('Bookmark'), bookmarkIndex.doc()),
+      $rdf.st(bookmarkIndex, SOLID('instance'), $rdf.sym(registryFilename), bookmarkIndex.doc()),
     ];
     const updater = new ($rdf as any).UpdateManager(store);
     updater.update([], insertions, (uri: string, ok: boolean, message: string) => { });
-    pageRegistry = store.any(pageIndex, SOLID('instance'), undefined, undefined);
+    bookmarkRegistry = store.any(bookmarkIndex, SOLID('instance'), undefined, undefined);
   }
-  return pageRegistry;
+  return bookmarkRegistry;
 }
 
-async function initialisePageIndex(store: $rdf.IndexedFormula, pageRegistry: $rdf.Node): Promise<$rdf.Node> {
+async function initialiseBookmarkIndex(store: $rdf.IndexedFormula, bookmarkRegistry: $rdf.Node): Promise<$rdf.Node> {
   const fetcher = new $rdf.Fetcher(store, {});
-  const pageIndex = store.any(pageRegistry, SOLID('instance'), undefined, undefined);
+  const bookmarkIndex = store.any(bookmarkRegistry, SOLID('instance'), undefined, undefined);
   try {
-    await (fetcher as any).load(pageIndex);
+    await (fetcher as any).load(bookmarkIndex);
   }
   catch {
-    const newIndex = $rdf.sym(pageIndex.value);
+    const newIndex = $rdf.sym(bookmarkIndex.value);
     await (fetcher as any).putBack(newIndex);
   }
-  return pageIndex;
+  return bookmarkIndex;
 }

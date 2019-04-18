@@ -2,29 +2,29 @@ import * as React from 'react';
 import { useWebId, useLDflexValue } from '@solid/react';
 
 import { LinkList } from './LinkList';
-import { AS, DC } from '../namespaces';
-import { Page } from '../interfaces';
-import { storePage } from '../store/storePage';
+import { DC, BOOKMARK } from '../namespaces';
+import { Bookmark } from '../interfaces';
+import { storeBookmark } from '../store/storeBookmark';
 import { useStore } from '../hooks/useStore';
-import { usePages } from '../hooks/usePages';
+import { useBookmarks } from '../hooks/useBookmarks';
 
 export const LinkSaver: React.FC = () => {
   const webId = useWebId();
   const name = useLDflexValue(`[${webId}].name`);
   const [link, setLink] = React.useState<string>();
   const [title, setTitle] = React.useState<string>();
-  const [addedLocalPages, addLocalPage] = React.useReducer<React.Reducer<Page[], Page>>(
-    (oldPages, page) => oldPages.concat(page),
+  const [addedLocalBookmarks, addLocalBookmark] = React.useReducer<React.Reducer<Bookmark[], Bookmark>>(
+    (oldBookmarks, bookmark) => oldBookmarks.concat(bookmark),
     [],
   );
   const store = useStore();
-  const pages = usePages(store);
-  let links: Page[] = [];
-  if (store && pages) {
-    links = pages.map(page => {
-      const url = store.any(page, AS('url'), undefined, undefined);
-      const title = store.any(page, AS('name'), undefined, undefined);
-      const created = store.any(page, DC('created'), undefined, undefined);
+  const bookmarks = useBookmarks(store);
+  let links: Bookmark[] = [];
+  if (store && bookmarks) {
+    links = bookmarks.map(bookmark => {
+      const url = store.any(bookmark, BOOKMARK('recalls'), undefined, undefined);
+      const title = store.any(bookmark, DC('title'), undefined, undefined);
+      const created = store.any(bookmark, DC('created'), undefined, undefined);
       return {
         url: url.value,
         title: (title) ? title.value : url.value,
@@ -39,14 +39,14 @@ export const LinkSaver: React.FC = () => {
     if (!store || !webId || !link || !title) {
       return;
     }
-    const newPage: Page = {
+    const newBookmark: Bookmark = {
       url: link,
       title: title,
       created: new Date(),
     };
     // Eagerly add the link to the local list so it already shows up in the UI:
-    addLocalPage(newPage);
-    await storePage(store, webId, newPage);
+    addLocalBookmark(newBookmark);
+    await storeBookmark(store, webId, newBookmark);
   }
 
   const heading = (name) ? `${name.toString()}'s links` : 'Your links';
@@ -99,7 +99,7 @@ export const LinkSaver: React.FC = () => {
               </div>
             </div>
           </form>
-          <LinkList links={addedLocalPages.concat(links)}/>
+          <LinkList links={addedLocalBookmarks.concat(links)}/>
         </div>
       </section>
     </>
