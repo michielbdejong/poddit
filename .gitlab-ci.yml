@@ -41,6 +41,8 @@ pages:
     # but GitLab Pages wants it to contain the built app
     - rm -r public
     - mv build public
+    # Make sure all routes load the app, which can then do client-side routing:
+    - cp public/index.html public/404.html
   artifacts:
     paths:
       - public 
