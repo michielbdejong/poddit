@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useWebId, useLDflexValue } from '@solid/react';
 
 import { LinkList } from './LinkList';
-import { AS } from '../namespaces';
+import { AS, DC } from '../namespaces';
 import { Page } from '../interfaces';
 import { storePage } from '../store/storePage';
 import { useStore } from '../hooks/useStore';
@@ -24,9 +24,11 @@ export const LinkSaver: React.FC = () => {
     links = pages.map(page => {
       const url = store.any(page, AS('url'), undefined, undefined);
       const title = store.any(page, AS('name'), undefined, undefined);
+      const created = store.any(page, DC('created'), undefined, undefined);
       return {
         url: url.value,
         title: (title) ? title.value : url.value,
+        created: (created) ? new Date(created.value) : new Date(0),
       };
     });
   }
@@ -40,6 +42,7 @@ export const LinkSaver: React.FC = () => {
     const newPage: Page = {
       url: link,
       title: title,
+      created: new Date(),
     };
     // Eagerly add the link to the local list so it already shows up in the UI:
     addLocalPage(newPage);

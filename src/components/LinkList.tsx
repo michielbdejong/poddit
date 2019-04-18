@@ -8,10 +8,14 @@ export interface Props {
 export const LinkList: React.FC<Props> = ({ links }) => {
   return (
     <ul>
-      {links.map(linkToCard)}
+      {links.sort(byNewer).map(linkToCard)}
     </ul>
   );
 };
+
+function byNewer(pageA: Page, pageB: Page): number {
+  return pageB.created.getTime() - pageA.created.getTime();
+}
 
 function linkToCard(link: Page, index: number): JSX.Element {
   return (

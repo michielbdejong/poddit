@@ -1,5 +1,5 @@
 import * as $rdf from 'rdflib';
-import { SOLID, AS, PIM, PURL } from "../namespaces";
+import { SOLID, AS, PIM, DC } from '../namespaces';
 
 export async function initialise(store: $rdf.IndexedFormula, webId: string): Promise<$rdf.Node> {
   const registry = await registerPageIndex(store, webId);
@@ -18,7 +18,7 @@ async function registerPageIndex(store: $rdf.IndexedFormula, webId: string): Pro
     const registryFilename = `${storage.value}public/poddit.ttl`;
     const pageIndex = $rdf.sym(`${typeIndex.value}#poddit`);
     const insertions = [
-      $rdf.st(typeIndex, PURL('references'), pageIndex, typeIndex),
+      $rdf.st(typeIndex, DC('references'), pageIndex, typeIndex),
       $rdf.st(pageIndex, AS('type'), SOLID('TypeRegistration'), pageIndex.doc()),
       $rdf.st(pageIndex, SOLID('forClass'), AS('Page'), pageIndex.doc()),
       $rdf.st(pageIndex, SOLID('instance'), $rdf.sym(registryFilename), pageIndex.doc()),
