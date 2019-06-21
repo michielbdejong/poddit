@@ -2004,6 +2004,11 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
+"@types/solid-auth-client@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@types/solid-auth-client/-/solid-auth-client-2.3.0.tgz#d4161878d8da6a2d3286ed5f84af46bcbf7f3477"
+  integrity sha512-R1WL8nw61Z284H25QtUrpEty6bSCzjzeeJUijT8G+JhMuav0CiwNcwyXbqB+3C0sjbIepmYE1Y6e5jgjOmE9ag==
+
 "@types/solid__react@^1.6.1":
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/@types/solid__react/-/solid__react-1.6.1.tgz#adf2b180bfaadb6039d18d42d10c2ebcee32dd8f"
