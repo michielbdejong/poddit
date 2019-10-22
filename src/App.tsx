@@ -33,7 +33,7 @@ class App extends Component {
           <LinkSaver/>
           <footer className="footer">
             <div className="container">
-              <LogoutButton className="button is-pulled-right"/>
+              <LogoutButton className="button is-pulled-right">Disconnect</LogoutButton>
             </div>
           </footer>
         </LoggedIn>
@@ -41,7 +41,7 @@ class App extends Component {
           <section className="section">
             <div className="container">
               <LoginButton popup="popup.html" className="button is-large is-primary">
-                Log in to start bookmarking
+                Connect to start bookmarking
               </LoginButton>
             </div>
           </section>
