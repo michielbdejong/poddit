@@ -8067,7 +8067,7 @@ node-web-streams@^0.2.2:
   integrity sha1-CH52u+t+jcVmhrJdtOYMX/nbCR8=
   dependencies:
     is-stream "^1.1.0"
-    web-streams-polyfill "git://github.com/gwicke/web-streams-polyfill#spec_performance_improvements"
+    web-streams-polyfill "https://github.com/gwicke/web-streams-polyfill#spec_performance_improvements"
 
 "nopt@2 || 3":
   version "3.0.6"
