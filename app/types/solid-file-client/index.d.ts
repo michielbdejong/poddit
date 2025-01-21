@@ -5,7 +5,9 @@
 // TypeScript Version: 2.8
 
 declare module "solid-file-client" {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     export function createFile(url: string, contents: string): Promise<any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     export function createFolder(url: string): Promise<any>;
     export function checkSession(): Promise<{webId: string}>;
 }

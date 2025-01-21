@@ -11,6 +11,7 @@ async function registerBookmarkIndex(store: $rdf.IndexedFormula, webId: string):
   const profile = store.sym(webId);
   const fetcher = new $rdf.Fetcher(store, {});
   const typeIndex = store.any(profile, SOLID('publicTypeIndex'), undefined, undefined);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await (fetcher as any).load(typeIndex);
   let bookmarkRegistry = store.any(undefined, SOLID('forClass'), BOOKMARK('Bookmark'), undefined);
   if (typeof bookmarkRegistry === 'undefined') {
@@ -23,8 +24,10 @@ async function registerBookmarkIndex(store: $rdf.IndexedFormula, webId: string):
       $rdf.st(bookmarkIndex, SOLID('forClass'), BOOKMARK('Bookmark'), bookmarkIndex.doc()),
       $rdf.st(bookmarkIndex, SOLID('instance'), $rdf.sym(registryFilename), bookmarkIndex.doc()),
     ];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const updater = new ($rdf as any).UpdateManager(store);
-    updater.update([], insertions, (uri: string, ok: boolean, message: string) => { });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    updater.update([], insertions, (_uri: string, _ok: boolean, _message: string) => { });
     bookmarkRegistry = store.any(bookmarkIndex, SOLID('instance'), undefined, undefined);
   }
   return bookmarkRegistry;
@@ -34,10 +37,12 @@ async function initialiseBookmarkIndex(store: $rdf.IndexedFormula, bookmarkRegis
   const fetcher = new $rdf.Fetcher(store, {});
   const bookmarkIndex = store.any(bookmarkRegistry, SOLID('instance'), undefined, undefined);
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await (fetcher as any).load(bookmarkIndex);
   }
   catch {
     const newIndex = $rdf.sym(bookmarkIndex.value);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await (fetcher as any).putBack(newIndex);
   }
   return bookmarkIndex;

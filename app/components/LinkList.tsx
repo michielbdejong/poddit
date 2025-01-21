@@ -17,7 +17,8 @@ function byNewer(bookmarkA: Bookmark, bookmarkB: Bookmark): number {
   return bookmarkB.created.getTime() - bookmarkA.created.getTime();
 }
 
-function linkToCard(link: Bookmark, index: number): JSX.Element {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function linkToCard(link: Bookmark, index: number): any {
   return (
     <li key={index} className="card section">
       <p className="content is-large">

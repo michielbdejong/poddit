@@ -1,8 +1,8 @@
 'use client'
 
 import * as React from 'react';
-import { useWebId } from '../hooks/useWebId';
-import { useLDflexValue } from '../hooks/useLDflexValue';
+import useWebId from '../hooks/useWebId';
+import useLDflexValue from '../hooks/useLDflexValue';
 
 import { LinkList } from './LinkList';
 import { DC, BOOKMARK } from '../namespaces';
@@ -16,21 +16,24 @@ export const LinkSaver: React.FC = () => {
   const name = useLDflexValue(`[${webId}].name`);
   const [link, setLink] = React.useState<string>();
   const [title, setTitle] = React.useState<string>();
-  const [addedLocalBookmarks, addLocalBookmark] = React.useReducer<React.Reducer<Bookmark[], Bookmark>>(
-    (oldBookmarks, bookmark) => oldBookmarks.concat(bookmark),
-    [],
+  const [addedLocalBookmarks, addLocalBookmark] = React.useReducer(
+    (oldBookmarks: Bookmark[], bookmark: Bookmark) => oldBookmarks.concat(bookmark),
+    []
   );
   const store = useStore();
   const bookmarks = useBookmarks(store);
   let links: Bookmark[] = [];
   if (store && bookmarks) {
     links = bookmarks.map(bookmark => {
-      const url = store.any(bookmark, BOOKMARK('recalls'), undefined, undefined);
-      const title = store.any(bookmark, DC('title'), undefined, undefined);
-      const created = store.any(bookmark, DC('created'), undefined, undefined);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const url = store.any(bookmark as any, BOOKMARK('recalls'), undefined, undefined);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const title = store.any(bookmark as any, DC('title'), undefined, undefined);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const created = store.any(bookmark as any, DC('created'), undefined, undefined);
       return {
-        url: url.value,
-        title: (title) ? title.value : url.value,
+        url: url!.value,
+        title: (title) ? title.value : url!.value,
         created: (created) ? new Date(created.value) : new Date(0),
       };
     });
