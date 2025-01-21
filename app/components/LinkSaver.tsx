@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react';
 import { useWebId, useLDflexValue } from '@solid/react';
 

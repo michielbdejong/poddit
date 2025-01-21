@@ -12,6 +12,7 @@ export function useBookmarks(store?: $rdf.IndexedFormula) {
     if (store && webId) {
       (async () => {
         const bookmarks = await getBookmarks(store, webId);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const fetcher = new ($rdf as any).Fetcher(store);
         await fetcher.load(bookmarks.map(bookmark => bookmark.value));
         setBookmarks(bookmarks);
