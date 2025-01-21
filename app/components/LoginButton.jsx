@@ -1,5 +1,4 @@
 import React from 'react';
-import auth from 'solid-auth-client';
 
 /** Button that lets the user log in with Solid. */
 export default function LoginButton({
@@ -9,5 +8,5 @@ export default function LoginButton({
 }) {
   return <button
     className={className}
-    onClick={() => auth.popupLogin({ popupUri: popup })}>{children}</button>;
+    onClick={() => {}}>{children}</button>;
 }

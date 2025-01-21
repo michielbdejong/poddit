@@ -1,7 +1,8 @@
 'use client'
 
 import * as React from 'react';
-import { useWebId, useLDflexValue } from '@solid/react';
+import { useWebId } from '../hooks/useWebId';
+import { useLDflexValue } from '../hooks/useLDflexValue';
 
 import { LinkList } from './LinkList';
 import { DC, BOOKMARK } from '../namespaces';

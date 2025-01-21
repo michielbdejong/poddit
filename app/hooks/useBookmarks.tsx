@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as $rdf from 'rdflib';
 
-import { useWebId } from '@solid/react';
+import { useWebId } from '../hooks/useWebId';
 import { getBookmarks } from '../store/getBookmarks';
 
 export function useBookmarks(store?: $rdf.IndexedFormula) {
