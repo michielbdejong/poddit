@@ -1,0 +1,26 @@
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+
+// You can use Bulma variables from here on
+
+
+@import "~bulma/bulma";
+@import "~bulma/sass/utilities/derived-variables";
+@import "~bulma/sass/layout/hero";
+
+// You can use derived variables from here on
+
+.navbar-brand {
+  font-weight: $weight-bold;
+}
+
+@media (min-width: $tablet) {
+  // The submit button in the link submission form is not being pushed down by a label,
+  // like the input fields for the URL and title are. Thus, we have to push it down
+  // manually to make sure it aligns with those input fields:
+  .field.is-horizontal .control.pageSubmit {
+    // This value is actually hardcoded by Bulma for .label:not(:last-child):
+    $label-bottom-margin: 0.5rem;
+    margin-top: $size-large + $label-bottom-margin;
+  }
+}
