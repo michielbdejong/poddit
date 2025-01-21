@@ -1,7 +1,7 @@
 import { useState, useEffect, useDebugValue } from 'react';
 import useWebId from './useWebId';
 import useLiveUpdate from './useLiveUpdate';
-import ExpressionEvaluator from '../ExpressionEvaluator';
+import ExpressionEvaluator from '../../lib/ExpressionEvaluator';
 
 const value = { result: undefined, pending: true, error: undefined };
 const list = { result: [], pending: true, error: undefined };

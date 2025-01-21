@@ -1,8 +1,8 @@
 import * as $rdf from 'rdflib';
 
 import { initialise } from './initialise';
-import { DC, XSD, BOOKMARK, RDF } from '../namespaces';
-import { Bookmark } from '../interfaces';
+import { DC, XSD, BOOKMARK, RDF } from '../../lib/namespaces';
+import { Bookmark } from '../../lib/interfaces';
 
 export async function storeBookmark(store: $rdf.IndexedFormula, webId: string, bookmark: Bookmark): Promise<$rdf.Node> {
   const bookmarkIndex = await initialise(store, webId);

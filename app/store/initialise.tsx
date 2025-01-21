@@ -1,5 +1,5 @@
 import * as $rdf from 'rdflib';
-import { SOLID, PIM, DC, BOOKMARK, RDF } from '../namespaces';
+import { SOLID, PIM, DC, BOOKMARK, RDF } from '../../lib/namespaces';
 
 export async function initialise(store: $rdf.IndexedFormula, webId: string): Promise<$rdf.Node> {
   const registry = await registerBookmarkIndex(store, webId);

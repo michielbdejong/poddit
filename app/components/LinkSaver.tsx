@@ -5,8 +5,8 @@ import useWebId from '../hooks/useWebId';
 import useLDflexValue from '../hooks/useLDflexValue';
 
 import { LinkList } from './LinkList';
-import { DC, BOOKMARK } from '../namespaces';
-import { Bookmark } from '../interfaces';
+import { DC, BOOKMARK } from '../../lib/namespaces';
+import { Bookmark } from '../../lib/interfaces';
 import { storeBookmark } from '../store/storeBookmark';
 import { useStore } from '../hooks/useStore';
 import { useBookmarks } from '../hooks/useBookmarks';

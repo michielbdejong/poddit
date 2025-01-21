@@ -1,5 +1,5 @@
 import { useContext, useDebugValue } from 'react';
-import UpdateContext from '../UpdateContext';
+import UpdateContext from '../../lib/UpdateContext';
 
 /**
  * Hook that rerenders components inside of a <LiveUpdate> container

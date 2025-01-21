@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Bookmark } from "../interfaces";
+import { Bookmark } from '../../lib/interfaces';
 
 export interface Props {
   links: Bookmark[];
