@@ -8,17 +8,19 @@ export default function Home() {
   return (
      <div>  
       <LoggedIn>
-        <LinkSaver/>
-        <footer className="footer">
-          <div className="container">
-            <LogoutButton className="button is-pulled-right">Disconnect</LogoutButton>
-          </div>
-        </footer>
+        <div>
+          <LinkSaver/>
+          <footer className="footer">
+            <div className="container">
+              <LogoutButton className="button is-pulled-right">Disconnect</LogoutButton>
+            </div>
+          </footer>
+        </div>
       </LoggedIn>
       <LoggedOut>
         <section className="section">
           <div className="container">
-            <LoginButton popup="popup.html" className="button is-large is-primary">
+            <LoginButton className="button is-large is-primary">
               Connect to start bookmarking
             </LoginButton>
           </div>
