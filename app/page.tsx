@@ -1,4 +1,7 @@
-import { LoggedIn, LogoutButton, LoggedOut, LoginButton } from '@solid/react';
+import { LoginButton } from './components/LoginButton';
+import { LoggedIn } from './components/LoggedIn';
+import { LogoutButton } from './components/LogoutButton';
+import { LoggedOut } from './components/LoggedOut';
 import { LinkSaver } from './components/LinkSaver';
 
 export default function Home() {
