@@ -1,3 +1,5 @@
+'use client'
+
 import LoginButton from './components/LoginButton';
 import LoggedIn from './components/LoggedIn';
 import LogoutButton from './components/LogoutButton';
