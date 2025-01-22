@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { handleIncomingRedirect } from "@inrupt/solid-client-authn-browser";
 import "regenerator-runtime/runtime";
 import useWebId from './hooks/useWebId';
+import useLoggedIn from './hooks/useLoggedIn';
 import LoggedIn from './components/LoggedIn';
 import LoginButton from './components/LoginButton';
 import LoggedOut from './components/LoggedOut';
@@ -17,22 +18,22 @@ import { LinkSaver } from './components/LinkSaver';
 
 export default function App() {
   const [webId, setWebId] = useWebId();
-  const [loggedIn, setLoggedIn] = useWebId();
+  const [, setLoggedIn] = useLoggedIn();
   useEffect(() => {
     // After redirect, the current URL contains login information.
     handleIncomingRedirect({
       restorePreviousSession: true,
-      onError: errorHandle,
+      // onError: errorHandle,
     }).then((info) => {
       console.log('redirect handled', info);
-      setWebId(info.webId);
-      setLoggedIn(info.isLoggedIn);
+      setWebId(info ? info.webId : undefined);
+      setLoggedIn(info ? info.isLoggedIn : false);
     });
   }, [webId]);
 
-  const errorHandle = (error, errorDescription) => {
-    console.log(`${error} has occured: `, errorDescription);
-  };
+  // const errorHandle = (error, errorDescription) => {
+  //   console.log(`${error} has occured: `, errorDescription);
+  // };
   return (
     <div>  
       <LoggedIn>

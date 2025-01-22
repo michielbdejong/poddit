@@ -8,7 +8,7 @@ export default function LogoutButton({
   children = 'Log out',
   className = 'solid auth logout',
 }) {
-  const [webId, setWebId] = useWebId();
+  const [, setWebId] = useWebId();
   return <button
     className={className}
     onClick={(e) => {
