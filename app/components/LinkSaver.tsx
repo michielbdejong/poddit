@@ -10,9 +10,9 @@ import { useStore } from '../hooks/useStore';
 import { useBookmarks } from '../hooks/useBookmarks';
 
 export const LinkSaver: React.FC = () => {
-  const webId = useWebId();
+  const [ webId ] = useWebId();
   console.log('webId', webId);
-  const name = webId?.name;
+  const name = webId;
   const [link, setLink] = React.useState<string>();
   const [title, setTitle] = React.useState<string>();
   const [addedLocalBookmarks, addLocalBookmark] = React.useReducer(
@@ -51,7 +51,7 @@ export const LinkSaver: React.FC = () => {
     };
     // Eagerly add the link to the local list so it already shows up in the UI:
     addLocalBookmark(newBookmark);
-    await storeBookmark(store, webId, newBookmark);
+    await storeBookmark(store, webId as string, newBookmark);
   }
 
   const heading = (name) ? `${name.toString()}'s links` : 'Your links';
@@ -60,9 +60,9 @@ export const LinkSaver: React.FC = () => {
     <>
       <header className="hero is-info">
         <div className="hero-body">
-          <p className="container">
+          {/* <p className="container"> */}
             <h2 className="title">{heading}</h2>
-          </p>
+          {/* </p> */}
         </div>
       </header>
       <section className="section">

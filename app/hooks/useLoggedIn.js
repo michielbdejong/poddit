@@ -1,14 +1,9 @@
-import { useDebugValue } from 'react';
-import useWebId from './useWebId';
+'use client'
 
-const isNotNull = (_, id) => id === undefined ? undefined : id !== null;
+import { useState } from 'react';
 
-/**
- * Returns whether the user is logged in,
- * or `undefined` if the user state is pending.
- */
-export default function useLoggedIn() {
-  const loggedIn = useWebId(isNotNull);
-  useDebugValue(loggedIn);
-  return loggedIn;
+import { getDefaultSession } from "@inrupt/solid-client-authn-browser";
+
+export default function useWebId() {
+  return useState(getDefaultSession().info.isLoggedIn);
 }
