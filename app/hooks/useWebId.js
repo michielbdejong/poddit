@@ -1,34 +1,38 @@
 'use client'
 
-import { useReducer, useEffect, useDebugValue } from 'react';
+import { useEffect } from 'react';
 
-// Keep track of the WebID and the state setters tracking it
-let webId = undefined;
-const subscribers = new Set();
-const getWebId = (_, id) => id;
+import {
+  // login,
+  // logout,
+  handleIncomingRedirect,
+  // fetch,
+  getDefaultSession,
+} from "@inrupt/solid-client-authn-browser";
+
+const REDIRECT_URL = "http://localhost:3000/";
+
+let webId, setWebId;
 
 /**
  * Returns the WebID (string) of the active user,
  * `null` if there is no user,
  * or `undefined` if the user state is pending.
  */
-export default function useWebId(reducer = getWebId) {
-  const [result, updateWebId] = useReducer(reducer, webId, reducer);
-  useDebugValue(webId);
-
-  useEffect(() => {
-    updateWebId(webId);
-    subscribers.add(updateWebId);
-    return () => subscribers.delete(updateWebId);
-  }, []);
-
-  return result;
+export default function useWebId() {
+  [webId, setWebId] = useState(getDefaultSession().info.webId);
+  console.log('useWebId', webId);
+  return webId;
 }
 
-// // Inform subscribers when the WebID changes
-// auth.trackSession(session => {
-//   webId = session ? session.webId : null;
-webId = null;
-//   for (const subscriber of subscribers)
-//     subscriber(webId);
-// });
+// The useEffect hook is executed on page load, and in particular when the user
+// is redirected to the page after logging in the identity provider.
+useEffect(() => {
+  // After redirect, the current URL contains login information.
+  handleIncomingRedirect({
+    restorePreviousSession: true,
+    onError: errorHandle,
+  }).then((info) => {
+    setWebId(info.webId);
+  });
+}, [webId]);
