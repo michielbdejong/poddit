@@ -1,7 +1,8 @@
 'use client'
 
 import * as React from 'react';
-import useWebId from '../hooks/useWebId';
+
+import { ISessionInfo, login, logout } from "@inrupt/solid-client-authn-browser";
 import { LinkList } from './LinkList';
 import { DC, BOOKMARK } from '../../lib/namespaces';
 import { Bookmark } from '../../lib/interfaces';
@@ -9,10 +10,9 @@ import { storeBookmark } from '../store/storeBookmark';
 import { useStore } from '../hooks/useStore';
 import { useBookmarks } from '../hooks/useBookmarks';
 
-export const LinkSaver: React.FC = () => {
-  const [ webId ] = useWebId();
-  console.log('webId', webId);
-  const name = webId;
+export default function LinkSaver({  sessionInfo }: {sessionInfo: ISessionInfo|undefined}) {
+  console.log('LinkSaver', sessionInfo);
+  const name = sessionInfo!.webId;
   const [link, setLink] = React.useState<string>();
   const [title, setTitle] = React.useState<string>();
   const [addedLocalBookmarks, addLocalBookmark] = React.useReducer(
@@ -41,7 +41,7 @@ export const LinkSaver: React.FC = () => {
   async function saveLink(event: React.FormEvent) {
     event.preventDefault();
 
-    if (!store || !webId || !link || !title) {
+    if (!store || !sessionInfo!.webId || !link || !title) {
       return;
     }
     const newBookmark: Bookmark = {
@@ -51,7 +51,7 @@ export const LinkSaver: React.FC = () => {
     };
     // Eagerly add the link to the local list so it already shows up in the UI:
     addLocalBookmark(newBookmark);
-    await storeBookmark(store, webId as string, newBookmark);
+    await storeBookmark(store, sessionInfo!.webId as string, newBookmark);
   }
 
   const heading = (name) ? `${name.toString()}'s links` : 'Your links';
