@@ -28,6 +28,7 @@ export default function useWebId(reducer = getWebId) {
 // // Inform subscribers when the WebID changes
 // auth.trackSession(session => {
 //   webId = session ? session.webId : null;
+webId = null;
 //   for (const subscriber of subscribers)
 //     subscriber(webId);
 // });
