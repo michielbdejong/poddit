@@ -2,8 +2,6 @@
 
 import * as React from 'react';
 import useWebId from '../hooks/useWebId';
-import useLDflexValue from '../hooks/useLDflexValue';
-
 import { LinkList } from './LinkList';
 import { DC, BOOKMARK } from '../../lib/namespaces';
 import { Bookmark } from '../../lib/interfaces';
@@ -13,7 +11,8 @@ import { useBookmarks } from '../hooks/useBookmarks';
 
 export const LinkSaver: React.FC = () => {
   const webId = useWebId();
-  const name = useLDflexValue(`[${webId}].name`);
+  console.log('webId', webId);
+  const name = webId?.name;
   const [link, setLink] = React.useState<string>();
   const [title, setTitle] = React.useState<string>();
   const [addedLocalBookmarks, addLocalBookmark] = React.useReducer(
