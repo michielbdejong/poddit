@@ -5,7 +5,7 @@ import useWebId from './useWebId';
 import { getBookmarks } from '../store/getBookmarks';
 
 export function useBookmarks(store?: $rdf.IndexedFormula) {
-  const [ webId ] = useWebId();
+  const webId = useWebId();
   const [bookmarks, setBookmarks] = React.useState<$rdf.Node[]>();
 
   React.useEffect(() => {

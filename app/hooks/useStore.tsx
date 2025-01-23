@@ -3,7 +3,7 @@ import * as $rdf from 'rdflib';
 import useWebId from './useWebId';
 
 export function useStore() {
-  const [ webId ] = useWebId();
+  const webId = useWebId();
   const [ store, setStore ] = React.useState<$rdf.IndexedFormula>();
 
   React.useEffect(() => {
