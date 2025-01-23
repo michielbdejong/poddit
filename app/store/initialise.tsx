@@ -1,5 +1,6 @@
 import * as $rdf from 'rdflib';
 import { SOLID, PIM, DC, BOOKMARK, RDF } from '../../lib/namespaces';
+import { fetch } from "@inrupt/solid-client-authn-browser";
 
 export async function initialise(store: $rdf.IndexedFormula, webId: string): Promise<$rdf.Node> {
   const registry = await registerBookmarkIndex(store, webId);
@@ -9,7 +10,7 @@ export async function initialise(store: $rdf.IndexedFormula, webId: string): Pro
 
 async function registerBookmarkIndex(store: $rdf.IndexedFormula, webId: string): Promise<$rdf.Node> {
   const profile = store.sym(webId);
-  const fetcher = new $rdf.Fetcher(store, {});
+  const fetcher = new $rdf.Fetcher(store, { fetch });
   const typeIndex = store.any(profile, SOLID('publicTypeIndex'), undefined, undefined);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await (fetcher as any).load(typeIndex);
@@ -35,7 +36,7 @@ async function registerBookmarkIndex(store: $rdf.IndexedFormula, webId: string):
 }
 
 async function initialiseBookmarkIndex(store: $rdf.IndexedFormula, bookmarkRegistry: $rdf.Node): Promise<$rdf.Node> {
-  const fetcher = new $rdf.Fetcher(store, {});
+  const fetcher = new $rdf.Fetcher(store, { fetch });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const bookmarkIndex = store.any(bookmarkRegistry as any, SOLID('instance'), undefined, undefined);
   try {
