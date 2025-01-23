@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState } from "react";
-import { login, logout } from "@inrupt/solid-client-authn-browser";
+import { useState, useEffect, createContext } from "react";
+import { login, logout, ISessionInfo, handleIncomingRedirect } from "@inrupt/solid-client-authn-browser";
 import "regenerator-runtime/runtime";
 import LoggedIn from './components/LoggedIn';
 import LoginButton from './components/LoginButton';
@@ -15,9 +15,22 @@ const REDIRECT_URL = "http://localhost:3000/";
 // for more information. Note that the URL of the document should match its `client_id` field.
 // const CLIENT_IDENTIFIER = "https://example.org/your-client-id";
 
+export const SessionInfoContext = createContext<ISessionInfo|undefined>(undefined);
+
 export default function App() {
   const [issuer] = useState("https://pivot.pondersource.com/");
-
+  const [sessionInfo, setSessionInfo] = useState<ISessionInfo|undefined>();
+  useEffect(() => {
+    console.log('main page useEffect!');
+    // After redirect, the current URL contains login information.
+    handleIncomingRedirect({
+    restorePreviousSession: true,
+    // onError: errorHandle,
+    }).then((info) => {
+    console.log('redirect handled', info);
+    setSessionInfo(info);
+    });
+  }, []);
   // const errorHandle = (error, errorDescription) => {
   //   console.log(`${error} has occured: `, errorDescription);
   // };
@@ -37,26 +50,28 @@ export default function App() {
     logout();
   };
   return (
-    <div>  
-      <LoggedIn>
-        <div>
-          <LinkSaver/>
-          <footer className="footer">
-            <div className="container">
-              <LogoutButton className="button is-pulled-right" handleLogout={handleLogout}>Disconnect</LogoutButton>
-            </div>
-          </footer>
-        </div>
-      </LoggedIn>
-      <LoggedOut>
-        <section className="section">
-          <div className="container">
-            <LoginButton className="button is-large is-primary" handleLogin={handleLogin}>
-              Connect to start bookmarking
-            </LoginButton>
+    <div>
+      <SessionInfoContext.Provider value={sessionInfo}>
+        <LoggedIn>
+          <div>
+            <LinkSaver/>
+            <footer className="footer">
+              <div className="container">
+                <LogoutButton className="button is-pulled-right" handleLogout={handleLogout}>Disconnect</LogoutButton>
+              </div>
+            </footer>
           </div>
-        </section>
-      </LoggedOut>
+        </LoggedIn>
+        <LoggedOut>
+          <section className="section">
+            <div className="container">
+              <LoginButton className="button is-large is-primary" handleLogin={handleLogin}>
+                Connect to start bookmarking
+              </LoginButton>
+            </div>
+          </section>
+        </LoggedOut>
+      </SessionInfoContext.Provider>
     </div>
   );
 }
