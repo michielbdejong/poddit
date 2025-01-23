@@ -48,6 +48,7 @@ export default function App() {
 
   const handleLogout = () => {
     logout();
+    setSessionInfo(undefined);
   };
   return (
     <div>
