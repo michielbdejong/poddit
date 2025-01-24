@@ -1,1 +1,0 @@
-self.__REACT_LOADABLE_MANIFEST='{"node_modules/rdflib/esm/jsonldparser.js -> jsonld":{"id":4827,"files":["static/chunks/827.0f4e88ab784b15b2.js","static/chunks/789.2abc15f60012fb03.js"]}}';
