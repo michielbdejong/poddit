@@ -10,7 +10,8 @@ import LogoutButton from './components/LogoutButton';
 import LinkSaver from './components/LinkSaver';
 import { SessionInfoContext } from './hooks/useSessionInfo';
 
-const REDIRECT_URL = "http://localhost:3000/";
+const REDIRECT_URL = "https://poddit.5apps.com/";
+const CLIENT_IDENTIFIER = "https://poddit.5apps.com/clientid.jsonld";
 // This is an example IRI where the Client identifier document (i.e. ../client-app-profile.jsonld)
 // is available to the OIDC issuer. See https://solid.github.io/solid-oidc/#clientids-document
 // for more information. Note that the URL of the document should match its `client_id` field.
@@ -32,7 +33,7 @@ export default function App() {
       redirectUrl: REDIRECT_URL,
       oidcIssuer: issuer,
       clientName: "Demo app",
-      // clientId: CLIENT_IDENTIFIER,
+      clientId: CLIENT_IDENTIFIER,
     });
   };
 
@@ -65,4 +66,4 @@ export default function App() {
       </SessionInfoContext.Provider>
     </div>
   );
-}
+} 
