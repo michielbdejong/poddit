@@ -8,3 +8,4 @@ export const LDP = $rdf.Namespace('http://www.w3.org/ns/ldp#');
 export const XSD = $rdf.Namespace("http://www.w3.org/2001/XMLSchema#");
 export const PIM = $rdf.Namespace('http://www.w3.org/ns/pim/space#');
 export const DC = $rdf.Namespace('http://purl.org/dc/terms/');
+export const VCARD = $rdf.Namespace('http://www.w3.org/2006/vcard/ns#');

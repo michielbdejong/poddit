@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import { LinkList } from './LinkList';
-import { DC, BOOKMARK } from '../../lib/namespaces';
+import { DC, BOOKMARK, VCARD } from '../../lib/namespaces';
 import { Bookmark } from '../../lib/interfaces';
 import { storeBookmark } from '../store/storeBookmark';
 import useWebId from '../hooks/useWebId';
@@ -12,7 +12,6 @@ import { useBookmarks } from '../hooks/useBookmarks';
 
 export default function LinkSaver() {
   const webId = useWebId();
-  const name = webId;
   const [link, setLink] = React.useState<string>();
   const [title, setTitle] = React.useState<string>();
   const [addedLocalBookmarks, addLocalBookmark] = React.useReducer(
@@ -22,7 +21,9 @@ export default function LinkSaver() {
   const store = useStore();
   const bookmarks = useBookmarks(store);
   let links: Bookmark[] = [];
+  let name;
   if (store && bookmarks) {
+    name = store?.any(store.sym(webId!), VCARD('fn'), undefined, undefined);
     links = bookmarks.map(bookmark => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const url = store.any(bookmark as any, BOOKMARK('recalls'), undefined, undefined);
