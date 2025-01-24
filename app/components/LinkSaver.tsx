@@ -12,7 +12,6 @@ import { useBookmarks } from '../hooks/useBookmarks';
 
 export default function LinkSaver() {
   const webId = useWebId();
-  console.log('LinkSaver');
   const name = webId;
   const [link, setLink] = React.useState<string>();
   const [title, setTitle] = React.useState<string>();
@@ -51,9 +50,7 @@ export default function LinkSaver() {
       created: new Date(),
     };
     // Eagerly add the link to the local list so it already shows up in the UI:
-    console.log('adding new bookmark locally');
     addLocalBookmark(newBookmark);
-    console.log('calling storeBookmark');
     await storeBookmark(store, webId as string, newBookmark);
   }
 
@@ -63,9 +60,9 @@ export default function LinkSaver() {
     <>
       <header className="hero is-info">
         <div className="hero-body">
-          {/* <p className="container"> */}
+          <div className="container">
             <h2 className="title">{heading}</h2>
-          {/* </p> */}
+          </div>
         </div>
       </header>
       <section className="section">

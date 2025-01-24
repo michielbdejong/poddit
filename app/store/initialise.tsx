@@ -13,7 +13,6 @@ async function registerBookmarkIndex(store: $rdf.IndexedFormula, webId: string):
   const fetcher = new $rdf.Fetcher(store, { fetch });
   const typeIndex = store.any(profile, SOLID('publicTypeIndex'), undefined, undefined);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  console.log('loading type index', typeIndex);
   await (fetcher as any).load(typeIndex);
   let bookmarkRegistry = store.any(undefined, SOLID('forClass'), BOOKMARK('Bookmark'), undefined);
   if (typeof bookmarkRegistry === 'undefined') {

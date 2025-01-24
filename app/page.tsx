@@ -21,23 +21,14 @@ export default function App() {
   const [issuer] = useState("https://pivot.pondersource.com/");
   const [sessionInfo, setSessionInfo] = useState<ISessionInfo|undefined>();
   useEffect(() => {
-    console.log('main page useEffect!');
     // After redirect, the current URL contains login information.
     handleIncomingRedirect({
     restorePreviousSession: true,
-    // onError: errorHandle,
     }).then((info) => {
-    console.log('redirect handled', info);
     setSessionInfo(info);
     });
   }, []);
-  // const errorHandle = (error, errorDescription) => {
-  //   console.log(`${error} has occured: `, errorDescription);
-  // };
   const handleLogin = () => {
-    // The default behaviour of the button is to resubmit.
-    // Login will redirect the user away so that they can log in the OIDC issuer,
-    // and back to the provided redirect URL (which should be controlled by your app).
     login({
       redirectUrl: REDIRECT_URL,
       oidcIssuer: issuer,
