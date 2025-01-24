@@ -1,9 +1,9 @@
 {
   "@context": ["https://www.w3.org/ns/solid/oidc-context.jsonld"],
 
-  "client_id": "https://poddit.5apps.com/clientid.jsonld",
+  "client_id": "https://poddit.app/clientid.jsonld",
   "client_name": "poddit",
-  "redirect_uris": ["https://poddit.5apps.com/"],
+  "redirect_uris": ["https://poddit.app/"],
   "grant_types" : ["refresh_token","authorization_code"],
   "response_types" : ["code"],
   "default_max_age" : 3600,
