@@ -51,7 +51,9 @@ export default function LinkSaver() {
       created: new Date(),
     };
     // Eagerly add the link to the local list so it already shows up in the UI:
+    console.log('adding new bookmark locally');
     addLocalBookmark(newBookmark);
+    console.log('calling storeBookmark');
     await storeBookmark(store, webId as string, newBookmark);
   }
 
