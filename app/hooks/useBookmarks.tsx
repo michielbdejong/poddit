@@ -1,20 +1,17 @@
 import * as React from 'react';
 import * as $rdf from 'rdflib';
-import { fetch } from '@inrupt/solid-client-authn-browser';
-
+import { Bookmark } from "@solid-data-modules/bookmarks-rdflib";
 import useWebId from './useWebId';
 import { getBookmarks } from '../store/getBookmarks';
 
 export function useBookmarks(store?: $rdf.IndexedFormula) {
   const webId = useWebId();
-  const [bookmarks, setBookmarks] = React.useState<$rdf.Node[]>();
+  const [bookmarks, setBookmarks] = React.useState<Bookmark[]>();
 
   React.useEffect(() => {
     if (store && webId) {
       (async () => {
-        const bookmarks = await getBookmarks(store, webId);
-        const fetcher = new $rdf.Fetcher(store, { fetch });
-        await fetcher.load(bookmarks.map(bookmark => bookmark.value));
+        const bookmarks: Bookmark[] = await getBookmarks(store, webId);
         setBookmarks(bookmarks);
       })();
     }
