@@ -22,7 +22,7 @@ function linkToCard(link: Bookmark, index: number): any {
   return (
     <li key={index} className="card section">
       <p className="content is-large">
-        <a href={link.url} title={`View ${link.title || link.url}`}>{link.title || link.url}</a>
+        <a href={link.uri} title={`View ${link.title || link.uri}`}>{link.title || link.uri}</a>
       </p>
     </li>
   );

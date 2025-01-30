@@ -18,7 +18,7 @@ export async function storeBookmark(store: $rdf.IndexedFormula, webId: string, b
     await bookmarks.createBookmark({
       storageUrl,
       title: bookmark.title,
-      url: bookmark.url
+      url: bookmark.uri
     })
     return storageUrl;
   } else {

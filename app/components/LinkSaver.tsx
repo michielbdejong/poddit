@@ -46,7 +46,7 @@ export default function LinkSaver() {
       return;
     }
     const newBookmark: Bookmark = {
-      url: link,
+      uri: link,
       title: title,
       created: new Date(),
     };
