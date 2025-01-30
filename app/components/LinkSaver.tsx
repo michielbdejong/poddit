@@ -3,8 +3,8 @@
 import * as React from 'react';
 
 import { LinkList } from './LinkList';
-import { DC, BOOKMARK, VCARD } from '../../lib/namespaces';
-import { Bookmark } from '../../lib/interfaces';
+import { VCARD } from '../../lib/namespaces';
+import { Bookmark } from "@solid-data-modules/bookmarks-rdflib";
 import { storeBookmark } from '../store/storeBookmark';
 import useWebId from '../hooks/useWebId';
 import { useStore } from '../hooks/useStore';
@@ -24,19 +24,7 @@ export default function LinkSaver() {
   let name;
   if (store && bookmarks) {
     name = store?.any(store.sym(webId!), VCARD('fn'), undefined, undefined);
-    links = bookmarks.map(bookmark => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const url = store.any(bookmark as any, BOOKMARK('recalls'), undefined, undefined);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const title = store.any(bookmark as any, DC('title'), undefined, undefined);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const created = store.any(bookmark as any, DC('created'), undefined, undefined);
-      return {
-        url: url!.value,
-        title: (title) ? title.value : url!.value,
-        created: (created) ? new Date(created.value) : new Date(0),
-      };
-    });
+    links = bookmarks;
   }
 
   async function saveLink(event: React.FormEvent) {
@@ -46,9 +34,10 @@ export default function LinkSaver() {
       return;
     }
     const newBookmark: Bookmark = {
-      uri: link,
+      bookmarkedUrl: link,
       title: title,
-      created: new Date(),
+      uri: '',
+      // created: new Date(),
     };
     // Eagerly add the link to the local list so it already shows up in the UI:
     addLocalBookmark(newBookmark);

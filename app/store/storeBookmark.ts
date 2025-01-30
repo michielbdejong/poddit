@@ -1,6 +1,6 @@
 import * as $rdf from 'rdflib';
 import getBookmarksDataModule, { getBookmarkStorages } from './bookmarksDataModule';
-import { Bookmark } from '../../lib/interfaces';
+import { Bookmark } from "@solid-data-modules/bookmarks-rdflib";
 
 /** Generate secure random string values in Javascript using cryto-random bytes */
 function randomHash (len: number) {
