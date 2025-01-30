@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@inrupt/solid-client-authn-browser": "^2.3.0",
+    "@solid-data-modules/bookmarks-rdflib": "^0.3.0",
     "bulma": "^1.0.3",
     "next": "15.1.5",
     "rdflib": "^2.2.35",

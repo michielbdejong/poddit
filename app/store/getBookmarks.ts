@@ -1,9 +1,9 @@
 import * as $rdf from 'rdflib';
-import { initialise } from './initialise';
-import { RDF, BOOKMARK } from '../../lib/namespaces';
+import getBookmarksDataModule from './bookmarksDataModule';
 
 export async function getBookmarks(store: $rdf.IndexedFormula, webId: string): Promise<$rdf.Node[]> {
-  await initialise(store, webId);
-  const bookmarks = store.each(undefined, RDF('type'), BOOKMARK('Bookmark'), undefined);
-  return bookmarks;
+  const bookmarks = getBookmarksDataModule(store);
+  const storages = await bookmarks.discoverStorage(webId);
+  console.log(storages);
+  return [];
 }
