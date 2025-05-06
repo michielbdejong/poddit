@@ -8,10 +8,14 @@ export interface Props {
 export const LinkList: React.FC<Props> = ({ links }) => {
   return (
     <ul>
-      {links.map(linkToCard)}
+      {links./*sort(byNewer).*/map(linkToCard)}
     </ul>
   );
 };
+
+// function byNewer(bookmarkA: Bookmark, bookmarkB: Bookmark): number {
+//   return bookmarkB.created.getTime() - bookmarkA.created.getTime();
+// }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function linkToCard(link: Bookmark, index: number): any {

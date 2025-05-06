@@ -8,7 +8,9 @@ export async function getBookmarks(store: $rdf.IndexedFormula, webId: string): P
   const storages: string[] = await getBookmarkStorages(bookmarks, webId);
   let items: Bookmark[] = [];
   const promises = storages.map(async storage => {
-    items = items.concat(await bookmarks.listBookmarks(storage));
+    const harvest = await bookmarks.listBookmarks(storage);
+    console.log(storage, harvest);
+    items = items.concat(harvest);
   });
   await Promise.all(promises);
   console.log(storages, items);
